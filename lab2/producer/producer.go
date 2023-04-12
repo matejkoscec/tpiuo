@@ -2,10 +2,11 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
 	"os"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -68,14 +69,11 @@ func Produce(producer *kafka.Producer, messages []Message, topic string) {
 			// for showcase purposes
 			time.Sleep(100 * time.Millisecond)
 
-			message, err := json.Marshal(d)
-			if err != nil {
-				fmt.Printf("Failed to marshal message: %v\n", err)
-				continue
-			}
-			err = producer.Produce(&kafka.Message{
+			message := strings.Join([]string{strconv.FormatInt(d.Time, 10), d.Price}, ",")
+
+			err := producer.Produce(&kafka.Message{
 				TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: kafka.PartitionAny},
-				Value:          message,
+				Value:          []byte(message),
 			}, nil)
 			if err != nil {
 				fmt.Printf("Failed to produce message: %v\n", err)
