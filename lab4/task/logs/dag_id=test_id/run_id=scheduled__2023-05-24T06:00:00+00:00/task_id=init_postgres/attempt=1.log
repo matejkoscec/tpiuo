@@ -1,0 +1,42 @@
+[2023-05-24T07:58:27.643+0000] {taskinstance.py:1125} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: test_id.init_postgres scheduled__2023-05-24T06:00:00+00:00 [queued]>
+[2023-05-24T07:58:27.651+0000] {taskinstance.py:1125} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: test_id.init_postgres scheduled__2023-05-24T06:00:00+00:00 [queued]>
+[2023-05-24T07:58:27.651+0000] {taskinstance.py:1331} INFO - Starting attempt 1 of 1
+[2023-05-24T07:58:27.665+0000] {taskinstance.py:1350} INFO - Executing <Task(PostgresOperator): init_postgres> on 2023-05-24 06:00:00+00:00
+[2023-05-24T07:58:27.669+0000] {standard_task_runner.py:57} INFO - Started process 256 to run task
+[2023-05-24T07:58:27.671+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'test_id', 'init_postgres', 'scheduled__2023-05-24T06:00:00+00:00', '--job-id', '6', '--raw', '--subdir', 'DAGS_FOLDER/test.py', '--cfg-path', '/tmp/tmpu5z6t7uy']
+[2023-05-24T07:58:27.672+0000] {standard_task_runner.py:85} INFO - Job 6: Subtask init_postgres
+[2023-05-24T07:58:27.709+0000] {task_command.py:410} INFO - Running <TaskInstance: test_id.init_postgres scheduled__2023-05-24T06:00:00+00:00 [running]> on host 42db111f117f
+[2023-05-24T07:58:27.771+0000] {taskinstance.py:1570} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='test_id' AIRFLOW_CTX_TASK_ID='init_postgres' AIRFLOW_CTX_EXECUTION_DATE='2023-05-24T06:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-05-24T06:00:00+00:00'
+[2023-05-24T07:58:27.771+0000] {sql.py:262} INFO - Executing: 
+            create table IF NOT EXISTS postgresdb(
+                name VARCHAR(50) NOT NULL,
+                time BIGINT,
+                value FLOAT
+            );
+            
+[2023-05-24T07:58:27.777+0000] {base.py:73} INFO - Using connection ID '***_local' for task execution.
+[2023-05-24T07:58:27.841+0000] {base.py:73} INFO - Using connection ID '***_local' for task execution.
+[2023-05-24T07:58:27.846+0000] {sql.py:375} INFO - Running statement: 
+            create table IF NOT EXISTS ***db(
+                name VARCHAR(50) NOT NULL,
+                time BIGINT,
+                value FLOAT
+            );
+            , parameters: None
+[2023-05-24T07:58:27.855+0000] {taskinstance.py:1847} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/providers/common/sql/operators/sql.py", line 274, in execute
+    **extra_kwargs,
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/providers/common/sql/hooks/sql.py", line 349, in run
+    self._run_command(cur, sql_statement, parameters)
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/providers/common/sql/hooks/sql.py", line 380, in _run_command
+    cur.execute(sql_statement)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+DETAIL:  Key (typname, typnamespace)=(***db, 2200) already exists.
+
+[2023-05-24T07:58:27.862+0000] {taskinstance.py:1373} INFO - Marking task as FAILED. dag_id=test_id, task_id=init_***, execution_date=20230524T060000, start_date=20230524T075827, end_date=20230524T075827
+[2023-05-24T07:58:27.876+0000] {standard_task_runner.py:109} ERROR - Failed to execute job 6 for task init_*** (duplicate key value violates unique constraint "pg_type_typname_nsp_index"
+DETAIL:  Key (typname, typnamespace)=(***db, 2200) already exists.
+; 256)
+[2023-05-24T07:58:27.884+0000] {local_task_job_runner.py:232} INFO - Task exited with return code 1
+[2023-05-24T07:58:27.896+0000] {taskinstance.py:2674} INFO - 0 downstream tasks scheduled from follow-on schedule check

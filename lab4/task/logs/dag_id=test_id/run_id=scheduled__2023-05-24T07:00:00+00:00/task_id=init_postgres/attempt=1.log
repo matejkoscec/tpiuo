@@ -1,0 +1,28 @@
+[2023-05-24T08:00:01.197+0000] {taskinstance.py:1125} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: test_id.init_postgres scheduled__2023-05-24T07:00:00+00:00 [queued]>
+[2023-05-24T08:00:01.203+0000] {taskinstance.py:1125} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: test_id.init_postgres scheduled__2023-05-24T07:00:00+00:00 [queued]>
+[2023-05-24T08:00:01.203+0000] {taskinstance.py:1331} INFO - Starting attempt 1 of 1
+[2023-05-24T08:00:01.214+0000] {taskinstance.py:1350} INFO - Executing <Task(PostgresOperator): init_postgres> on 2023-05-24 07:00:00+00:00
+[2023-05-24T08:00:01.217+0000] {standard_task_runner.py:57} INFO - Started process 285 to run task
+[2023-05-24T08:00:01.220+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'test_id', 'init_postgres', 'scheduled__2023-05-24T07:00:00+00:00', '--job-id', '7', '--raw', '--subdir', 'DAGS_FOLDER/test.py', '--cfg-path', '/tmp/tmpdacgzrmy']
+[2023-05-24T08:00:01.220+0000] {standard_task_runner.py:85} INFO - Job 7: Subtask init_postgres
+[2023-05-24T08:00:01.255+0000] {task_command.py:410} INFO - Running <TaskInstance: test_id.init_postgres scheduled__2023-05-24T07:00:00+00:00 [running]> on host 42db111f117f
+[2023-05-24T08:00:01.311+0000] {taskinstance.py:1570} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='test_id' AIRFLOW_CTX_TASK_ID='init_postgres' AIRFLOW_CTX_EXECUTION_DATE='2023-05-24T07:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-05-24T07:00:00+00:00'
+[2023-05-24T08:00:01.312+0000] {sql.py:262} INFO - Executing: 
+            create table IF NOT EXISTS postgresdb(
+                name VARCHAR(50) NOT NULL,
+                time BIGINT,
+                value FLOAT
+            );
+            
+[2023-05-24T08:00:01.318+0000] {base.py:73} INFO - Using connection ID '***_local' for task execution.
+[2023-05-24T08:00:01.364+0000] {base.py:73} INFO - Using connection ID '***_local' for task execution.
+[2023-05-24T08:00:01.368+0000] {sql.py:375} INFO - Running statement: 
+            create table IF NOT EXISTS ***db(
+                name VARCHAR(50) NOT NULL,
+                time BIGINT,
+                value FLOAT
+            );
+            , parameters: None
+[2023-05-24T08:00:01.375+0000] {taskinstance.py:1373} INFO - Marking task as SUCCESS. dag_id=test_id, task_id=init_***, execution_date=20230524T070000, start_date=20230524T080001, end_date=20230524T080001
+[2023-05-24T08:00:01.392+0000] {local_task_job_runner.py:232} INFO - Task exited with return code 0
+[2023-05-24T08:00:01.403+0000] {taskinstance.py:2674} INFO - 0 downstream tasks scheduled from follow-on schedule check
